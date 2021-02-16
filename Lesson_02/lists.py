@@ -1,5 +1,5 @@
-print('Hello world', 2**10)
-#user_input = input('Enter two numbers')
+print('Hello world', 2 ** 10)
+# user_input = input('Enter two numbers')
 
 x, y = map(int, input().split())
 print(type(x))

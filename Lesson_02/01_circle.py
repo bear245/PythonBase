@@ -11,7 +11,7 @@ pi = 3.1415926
 #       точность указывается в функции round()
 
 # Calculate square of the circle
-square = pi*radius**2
+square = pi * radius ** 2
 # output result without round
 print(square)
 # output rounded result
@@ -30,7 +30,7 @@ point = (23, 34)
 #       операции сравнения дают булевы константы True и False
 
 # Calculate distance from start point(0,0)
-distance1 = (point[0]**2 + point[1]**2)**.5
+distance1 = (point[0] ** 2 + point[1] ** 2) ** .5
 # Compare distance to point with circle's radius
 print(distance1 <= radius)
 
@@ -40,7 +40,7 @@ point_2 = (30, 30)
 # Или False, если точка лежит вовне круга.
 
 # Calculate distance from start point(0,0)
-distance2 = (point_2[0]**2 + point_2[1]**2)**.5
+distance2 = (point_2[0] ** 2 + point_2[1] ** 2) ** .5
 # Compare distance to point with circle's radius
 print(distance2 <= radius)
 
@@ -49,5 +49,3 @@ print(distance2 <= radius)
 # 77777.7777
 # False
 # False
-
-

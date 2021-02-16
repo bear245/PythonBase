@@ -43,20 +43,15 @@ chair_cost = store[goods['Стул']][0]['quantity'] * store[goods['Стул']][
              store[goods['Стул']][2]['quantity'] * store[goods['Стул']][2]['price']
 
 print('Лампа -', store[goods['Лампа']][0]['quantity'], 'шт, стоимость', lamps_cost, 'руб')
-print('Стол -', store[goods['Стол']][0]['quantity'] + store[goods['Стол']][1]['quantity'], 'шт, стоимость', table_cost, 'руб')
-print('Диван -', store[goods['Диван']][0]['quantity'] + store[goods['Диван']][1]['quantity'], 'шт, стоимость', sofa_cost, 'руб')
+print('Стол -', store[goods['Стол']][0]['quantity'] + store[goods['Стол']][1]['quantity'], 'шт, стоимость', table_cost,
+      'руб')
+print('Диван -', store[goods['Диван']][0]['quantity'] + store[goods['Диван']][1]['quantity'], 'шт, стоимость',
+      sofa_cost, 'руб')
 print('Стул -', store[goods['Стул']][0]['quantity'] + store[goods['Стул']][1]['quantity'] +
       store[goods['Стул']][2]['quantity'], 'шт, стоимость', chair_cost, 'руб')
-
 
 # Вывести стоимость каждого товара на складе: один раз распечать сколько всего столов, стульев и т.д. на складе
 # Формат строки <товар> - <кол-во> шт, стоимость <общая стоимость> руб
 
 # WARNING для знающих циклы: БЕЗ циклов. Да, с переменными; да, неэффективно; да, копипаста.
 # Это задание на ручное вычисление - что бы потом понять как работают циклы и насколько с ними проще жить.
-
-
-
-
-
-
