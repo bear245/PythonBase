@@ -10,5 +10,15 @@
 #   Студенту надо попросить ХХХ.ХХ рублей
 
 educational_grant, expenses = 10000, 12000
+months = 10
+total_expenses = expenses
+total_educational_grant = educational_grant
 
-# TODO здесь ваш код
+for _ in range(months - 1):
+    expenses = expenses + expenses * 0.03
+    total_expenses = total_expenses + expenses
+    total_educational_grant = total_educational_grant + educational_grant
+
+difference = total_expenses - total_educational_grant
+
+print('Студенту надо попросить ' + str(float(round(difference, 2))) + ' рублей')

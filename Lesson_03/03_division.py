@@ -9,5 +9,11 @@
 #   Целочисленное деление ХХХ на YYY дает ZZZ
 
 a, b = 179, 37
+copy_a = a
+count = 0
 
-# TODO здесь ваш код
+while a > b:
+    a -= b
+    count += 1
+
+print('Целочисленное деление ' + str(copy_a) + ' на ' + str(b) + ' дает ' + str(count))
