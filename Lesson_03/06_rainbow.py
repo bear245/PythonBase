@@ -35,5 +35,4 @@ for y in range(len(rainbow_colors)):
     radius += 20
     sd.circle(center_position=point, radius=radius, color=rainbow_colors[y], width=10)
 
-
 sd.pause()
