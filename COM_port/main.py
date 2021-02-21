@@ -42,3 +42,11 @@ while True:
     ser.write(Command.encode())
 
 Calys_Stop()
+
+# TODO: Create function for define last character in manual written command for HW
+# If it's '?' Than wait for answer from HW Else just send a CMD
+
+# TODO: Create main menu on dispaly: 1) Start Voltage calibration: 1.1 Range 0..1VDC e.t.c.
+# 2) Start current calibration: 2.1 Range 0..5mA
+# 3) Manual enter CMD
+# 4) Exit
