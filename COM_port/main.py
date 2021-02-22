@@ -31,22 +31,40 @@ Calys_Init()
 
 # time.sleep(5.5) # Pause 5.5 seconds
 # wait = input('Press any key to continue...')
+# Command = ''
+# while True:
+#     Command = input('Type your Command and press Enter: ')
+#     if Command.upper() == 'EXIT':
+#         break
+#     Command = Command + '\r\n'
+#     print(Command)
+#     print(Command.encode())
+#     ser.write(Command.encode())
+
 Command = ''
 while True:
     Command = input('Type your Command and press Enter: ')
-    if Command.upper() == 'EXIT':
+    if Command.upper() == 'EXIT' or Command.upper() == 'QUIT':
         break
-    Command = Command + '\r\n'
-    print(Command)
-    print(Command.encode())
-    ser.write(Command.encode())
+    if Command[-1] == '?':
+        Command = Command + '\r\n'
+        print('Send Request: ' + Command.encode())
+        ser.write(Command.encode())
+        raw_bytes = ser.readline()  # Read all present data from SERIAL
+        print(raw_bytes.decode())  # Display received data as UNICODE decoded from BIN Array
+    else:
+        Command = Command + '\r\n'
+        print('Send Command: ' + Command.encode())
+        ser.write(Command.encode())
 
 Calys_Stop()
 
-# TODO: Create function for define last character in manual written command for HW
-# If it's '?' Than wait for answer from HW Else just send a CMD
+# TODO: Replace algorithms of Request/CMD as two separated functions
+#  +Create function for define last character in manual written command for HW
+#  +If it's '?' Than wait for answer from HW Else just send a CMD
 
-# TODO: Create main menu on dispaly: 1) Start Voltage calibration: 1.1 Range 0..1VDC e.t.c.
-# 2) Start current calibration: 2.1 Range 0..5mA
-# 3) Manual enter CMD
-# 4) Exit
+# TODO: Create main menu on dispaly:
+#  1) Start Voltage calibration: 1.1 Range 0..1VDC e.t.c.
+#  2) Start current calibration: 2.1 Range 0..5mA
+#  3) Manual enter CMD
+#  4) Exit
