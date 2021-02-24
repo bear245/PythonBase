@@ -3,6 +3,11 @@ import time
 
 
 def Calys_Init():
+    """This function realize Initialization of Hardware (Calys75)
+    check it identification (*IDN?) as evidence of successful connection
+    and change device's state to Remote work (REM)
+    :return: None
+    """
     print("Connected to: " + ser.portstr)  # Display a message about successful connection
     ser.write(b'*IDN?\r\n')  # Write BIN array to SERIAL
     ser.flush()  # Clear output buffer
@@ -12,10 +17,37 @@ def Calys_Init():
 
 
 def Calys_Stop():
-    print('Disconnected')
+    """This function realize stop of Hardware (Calys75)
+    change device's state to Local work (LOC) and close SERIAL
+    :return: None
+    """
     ser.write(b'LOC\r\n')
-    # Close SERIAL port
-    ser.close()
+    ser.close()  # Close SERIAL port
+    print('Disconnected')
+
+
+def Calys_Send_Command(Command):
+    """This function transform user input(string) into HW command(bytes),
+    display it and write to SERIAL
+    :param Command: User input from keyboard
+    :return: None
+    """
+    Command = Command + '\r\n'
+    print('Send Command: ' + str(Command.encode()))
+    ser.write(Command.encode())
+
+
+def Calys_Send_Request(Command):
+    """This function transform user input(string) into HW command(bytes),
+    display it, write to SERIAL and wait for answer from SERIAL
+    :param Command: User input from keyboard
+    :return: None
+    """
+    Command = Command + '\r\n'
+    print('Send Request: ' + str(Command.encode()))
+    ser.write(Command.encode())
+    raw_bytes = ser.readline()  # Read all present data from SERIAL
+    print('Received: ' + str(raw_bytes.decode()))  # Display received data as UNICODE decoded from BIN Array
 
 
 # Initialize Serial port with parameters
@@ -29,42 +61,22 @@ ser = serial.Serial(
 
 Calys_Init()
 
-# time.sleep(5.5) # Pause 5.5 seconds
-# wait = input('Press any key to continue...')
-# Command = ''
-# while True:
-#     Command = input('Type your Command and press Enter: ')
-#     if Command.upper() == 'EXIT':
-#         break
-#     Command = Command + '\r\n'
-#     print(Command)
-#     print(Command.encode())
-#     ser.write(Command.encode())
-
-Command = ''
 while True:
-    Command = input('Type your Command and press Enter: ')
-    if Command.upper() == 'EXIT' or Command.upper() == 'QUIT':
+    User_Input = input('\nType your Command and press Enter: ')
+    if User_Input.upper() == 'EXIT' or User_Input.upper() == 'QUIT':
         break
-    if Command[-1] == '?':
-        Command = Command + '\r\n'
-        print('Send Request: ' + str(Command.encode()))
-        ser.write(Command.encode())
-        raw_bytes = ser.readline()  # Read all present data from SERIAL
-        print('Received: '+ str(raw_bytes.decode()))  # Display received data as UNICODE decoded from BIN Array
+    if User_Input[-1] == '?':
+        Calys_Send_Request(User_Input)
     else:
-        Command = Command + '\r\n'
-        print('Send Command: ' + str(Command.encode()))
-        ser.write(Command.encode())
+        Calys_Send_Command(User_Input)
 
 Calys_Stop()
-
-# TODO: Replace algorithms of Request/CMD as two separated functions
-#  +Create function for define last character in manual written command for HW
-#  +If it's '?' Than wait for answer from HW Else just send a CMD
 
 # TODO: Create main menu on dispaly:
 #  1) Start Voltage calibration: 1.1 Range 0..1VDC e.t.c.
 #  2) Start current calibration: 2.1 Range 0..5mA
 #  3) Manual enter CMD
 #  4) Exit
+
+# time.sleep(5.5) # Pause 5.5 seconds
+# wait = input('Press any key to continue...')
