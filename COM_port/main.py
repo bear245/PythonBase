@@ -48,13 +48,13 @@ while True:
         break
     if Command[-1] == '?':
         Command = Command + '\r\n'
-        print('Send Request: ' + Command.encode())
+        print('Send Request: ' + str(Command.encode()))
         ser.write(Command.encode())
         raw_bytes = ser.readline()  # Read all present data from SERIAL
-        print(raw_bytes.decode())  # Display received data as UNICODE decoded from BIN Array
+        print('Received: '+ str(raw_bytes.decode()))  # Display received data as UNICODE decoded from BIN Array
     else:
         Command = Command + '\r\n'
-        print('Send Command: ' + Command.encode())
+        print('Send Command: ' + str(Command.encode()))
         ser.write(Command.encode())
 
 Calys_Stop()
