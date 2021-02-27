@@ -18,6 +18,10 @@ class bcolors:
 #    os.system('cls' if os.name=='nt' else 'clear')
 
 def Show_Main_Menu():
+    """This function displays a Main menu
+    as multi-strings and a prompt for user's choice
+    :return: Selected item of Menu
+    """
     TopLevel_Menu = ("Main menu for Calys75 operations.\n\n"
                      "1. Start Voltage Calibration\n"
                      "2. Start Voltage Measurement\n"
@@ -28,6 +32,10 @@ def Show_Main_Menu():
     return int(TopLevel_Selector)
 
 def Show_Calibration_Menu():
+    """This function displays a Calibration menu
+    as multi-strings and a prompt for user's choice
+    :return: Selected item of Menu
+    """
     Calibration_Menu = ("Calibration menu for Calys75 operations. \n\n"
                         "1. Start Calibration in range 100mV \n"
                         "2. Start Calibration in range 2V \n"
@@ -38,6 +46,10 @@ def Show_Calibration_Menu():
     return int(Calibration_Selector)
 
 def Show_Measurement_Menu():
+    """This function displays a Measurement menu
+    as multi-strings and a prompt for user's choice
+    :return: Selected item of Menu
+    """
     Measurement_Menu = ("Measurement menu for Calys75 operations. \n\n"
                         "1. Start Measurement in range 100mV \n"
                         "2. Start Measurement in range 1V \n"
