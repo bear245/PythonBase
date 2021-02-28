@@ -107,6 +107,54 @@ def Calys_Send_Request(Command):
     raw_bytes = ser.readline()  # Read all present data from SERIAL
     print('Received: ' + str(raw_bytes.decode()))  # Display received data as UNICODE decoded from BIN Array
 
+def Calys_Menu():
+    """This function realiizes processing
+    of all levels of app menu
+    :return: None
+    """
+    while True:
+        TopSelector = Show_Main_Menu()
+        if TopSelector == 0:
+            break
+        elif TopSelector == 1:
+            while True:
+                CalSelector = Show_Calibration_Menu()
+                if CalSelector == 0:
+                    break
+                elif CalSelector == 1:
+                    print("\n1. Start Calibration in range 100mV \n")
+                elif CalSelector == 2:
+                    print("\n2. Start Calibration in range 2V \n")
+                elif CalSelector == 3:
+                    print("\n3. Start Calibration in range 20V \n")
+                else:
+                    print('\x1b[2;30;41m' + 'Please select correct options...' + '\x1b[0m')
+        elif TopSelector == 2:
+            while True:
+                MeasSelector = Show_Measurement_Menu()
+                if MeasSelector == 0:
+                    break
+                elif MeasSelector == 1:
+                    print("\n1. Start Measurement in range 100mV \n")
+                elif MeasSelector == 2:
+                    print("\n2. Start Measurement in range 1V \n")
+                elif MeasSelector == 3:
+                    print("\n3. Start Measurement in range 10V \n")
+                elif MeasSelector == 4:
+                    print("\n4. Start Measurement in range 50V \n")
+                else:
+                    print('\x1b[2;30;41m' + 'Please select correct options...' + '\x1b[0m')
+        elif TopSelector == 3:
+            while True:
+                User_Input = input('\x1b[5;30;42m' + 'Type your Command (or quit) and press Enter: ' + '\x1b[0m')
+                if User_Input.upper() == 'EXIT' or User_Input.upper() == 'QUIT':
+                    break
+                if User_Input[-1] == '?':
+                    Calys_Send_Request(User_Input)
+                else:
+                    Calys_Send_Command(User_Input)
+        else:
+            print('\x1b[2;30;41m' + 'Please select correct options...' + '\x1b[0m')
 
 # Initialize Serial port with parameters
 ser = serial.Serial(
@@ -119,54 +167,9 @@ ser = serial.Serial(
 
 Calys_Init()
 
-while True:
-    TopSelector = Show_Main_Menu()
-    if TopSelector == 0:
-        break
-    elif TopSelector == 1:
-        while True:
-            CalSelector = Show_Calibration_Menu()
-            if CalSelector == 0:
-                break
-            elif CalSelector == 1:
-                print("\n1. Start Calibration in range 100mV \n")
-            elif CalSelector == 2:
-                print("\n2. Start Calibration in range 2V \n")
-            elif CalSelector == 3:
-                print("\n3. Start Calibration in range 20V \n")
-            else:
-                print('\x1b[2;30;41m' + 'Please select correct options...' + '\x1b[0m')
-    elif TopSelector == 2:
-        while True:
-            MeasSelector = Show_Measurement_Menu()
-            if MeasSelector == 0:
-                break
-            elif MeasSelector == 1:
-                print("\n1. Start Measurement in range 100mV \n")
-            elif MeasSelector == 2:
-                print("\n2. Start Measurement in range 1V \n")
-            elif MeasSelector == 3:
-                print("\n3. Start Measurement in range 10V \n")
-            elif MeasSelector == 4:
-                print("\n4. Start Measurement in range 50V \n")
-            else:
-                print('\x1b[2;30;41m' + 'Please select correct options...' + '\x1b[0m')
-    elif TopSelector == 3:
-        while True:
-            User_Input = input('\x1b[5;30;42m' + 'Type your Command (or quit) and press Enter: ' + '\x1b[0m')
-            if User_Input.upper() == 'EXIT' or User_Input.upper() == 'QUIT':
-                break
-            if User_Input[-1] == '?':
-                Calys_Send_Request(User_Input)
-            else:
-                Calys_Send_Command(User_Input)
-    else:
-        print('\x1b[2;30;41m' + 'Please select correct options...' + '\x1b[0m')
+Calys_Menu()
 
 Calys_Stop()
-
-# TODO: Separate all Menu processing procedures to functions
-# TODO: Document all functions
 
 # time.sleep(5.5) # Pause 5.5 seconds
 # wait = input('Press any key to continue...')
