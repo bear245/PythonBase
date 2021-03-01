@@ -1,6 +1,7 @@
 import serial
 import time
 
+
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -13,6 +14,7 @@ class bcolors:
     ENDC = '\033[0m'
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
+
 
 # def cls():
 #    os.system('cls' if os.name=='nt' else 'clear')
@@ -31,6 +33,7 @@ def Show_Main_Menu():
     TopLevel_Selector = input('\x1b[5;30;42m' + 'Select your option and press Enter to continue: ' + '\x1b[0m')
     return int(TopLevel_Selector)
 
+
 def Show_Calibration_Menu():
     """This function displays a Calibration menu
     as multi-strings and a prompt for user's choice
@@ -44,6 +47,7 @@ def Show_Calibration_Menu():
     print(bcolors.OKCYAN + Calibration_Menu + bcolors.ENDC)
     Calibration_Selector = input('\x1b[5;30;42m' + 'Select your option and press Enter to continue: ' + '\x1b[0m')
     return int(Calibration_Selector)
+
 
 def Show_Measurement_Menu():
     """This function displays a Measurement menu
@@ -59,6 +63,7 @@ def Show_Measurement_Menu():
     print(bcolors.CVIOLET + Measurement_Menu + bcolors.ENDC)
     Measurement_Selector = input('\x1b[5;30;42m' + 'Select your option and press Enter to continue: ' + '\x1b[0m')
     return int(Measurement_Selector)
+
 
 def Calys_Init():
     """This function realize Initialization of Hardware (Calys75)
@@ -106,6 +111,21 @@ def Calys_Send_Request(Command):
     ser.write(Command.encode())
     raw_bytes = ser.readline()  # Read all present data from SERIAL
     print('Received: ' + str(raw_bytes.decode()))  # Display received data as UNICODE decoded from BIN Array
+
+
+# TODO transform this function to a common type, where Range and Step will establish as func paramaters,
+#      'mV' identifiers as an unnecessary parameter
+def Calys_Calibration100():
+    Calys_Send_Command('SOUR:FUNC VOLT')
+    Calys_Send_Command('SOUR:VOLT:RANG 100mV')
+    for Value in range(0, 101, 10):
+        Calys_Send_Command('SOUR:VOLT ' + str(Value) + 'mV')
+        User_Input = input('\x1b[5;30;42m' + 'Press any key to continue Next Step...' + '\x1b[0m')
+        if User_Input.upper() == 'EXIT' or User_Input.upper() == 'QUIT':
+            break
+    Calys_Send_Command('SOUR:VOLT:RANG 50V')
+    Calys_Send_Command('SOUR:VOLT 0V')
+
 
 def Calys_Menu():
     """This function realiizes processing
@@ -156,6 +176,7 @@ def Calys_Menu():
         else:
             print('\x1b[2;30;41m' + 'Please select correct options...' + '\x1b[0m')
 
+
 # Initialize Serial port with parameters
 ser = serial.Serial(
     port='COM3', \
@@ -167,7 +188,8 @@ ser = serial.Serial(
 
 Calys_Init()
 
-Calys_Menu()
+# Calys_Menu()
+Calys_Calibration100()
 
 Calys_Stop()
 
