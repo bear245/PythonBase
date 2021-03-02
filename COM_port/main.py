@@ -112,6 +112,7 @@ def Calys_Send_Request(Command):
     raw_bytes = ser.readline()  # Read all present data from SERIAL
     print('Received: ' + str(raw_bytes.decode()))  # Display received data as UNICODE decoded from BIN Array
 
+
 def Calys_Set_Range(*, Function=('VOLT', 'CURR'), **kwargs):
     """This function sets Source output function of HW
     and sets it to correct or maximum Range
@@ -130,10 +131,10 @@ def Calys_Set_Range(*, Function=('VOLT', 'CURR'), **kwargs):
             Calys_Send_Command('SOUR:CURR:RANG 0mA')
         elif CRange == 4:
             Calys_Send_Command('SOUR:CURR:RANG 4mA')
-        elif CRange ==24:
+        elif CRange == 24:
             Calys_Send_Command('SOUR:CURR:RANG 24mA')
         else:
-            print('Incorrect Range of Function (Setup MAX range)...')
+            print('\x1b[2;30;41m' + 'Incorrect Range of Function (Setup MAX range)...' + '\x1b[0m')
             Calys_Send_Command('SOUR:CURR:RANG 24mA')
     else:
         Calys_Send_Command('SOUR:FUNC VOLT')
@@ -144,14 +145,15 @@ def Calys_Set_Range(*, Function=('VOLT', 'CURR'), **kwargs):
             Units = 'mV'
         elif VRange == 2:
             Calys_Send_Command('SOUR:VOLT:RANG 2V')
-        elif VRange ==20:
+        elif VRange == 20:
             Calys_Send_Command('SOUR:VOLT:RANG 20V')
-        elif VRange ==50:
+        elif VRange == 50:
             Calys_Send_Command('SOUR:VOLT:RANG 50V')
         else:
-            print('Incorrect Range of Function (Setup MAX range)...')
+            print('\x1b[2;30;41m' + 'Incorrect Range of Function (Setup MAX range)...' + '\x1b[0m')
             Calys_Send_Command('SOUR:VOLT:RANG 50V')
     return Units
+
 
 # def Calys_Calibration(*, Start_Cal, Stop_Cal, Step_Cal, End_of_String='V'):
 def Calys_Calibration(**kwargs):
@@ -169,13 +171,13 @@ def Calys_Calibration(**kwargs):
     Step_Cal = kwargs.get('Step_Cal', 1)
     End_of_Command = kwargs.get('End_of_Command', 'V')
 
-    for Value in range(Start_Cal, Stop_Cal+1, Step_Cal):
+    for Value in range(Start_Cal, Stop_Cal + 1, Step_Cal):
         if End_of_Command == 'mA':
             Calys_Send_Command('SOUR:CURR ' + str(Value) + End_of_Command)
         elif End_of_Command == 'V' or End_of_Command == 'mV':
             Calys_Send_Command('SOUR:VOLT ' + str(Value) + End_of_Command)
         else:
-            print('Incorrect Units...Quit')
+            print('\x1b[2;30;41m' + 'Incorrect Units...Quit' + '\x1b[0m')
             break
         User_Input = input('\x1b[5;30;42m' + 'Press any key to continue Next Step...' + '\x1b[0m')
         if User_Input.upper() == 'EXIT' or User_Input.upper() == 'QUIT':
@@ -184,6 +186,7 @@ def Calys_Calibration(**kwargs):
     Calys_Send_Command('SOUR:FUNC VOLT')
     Calys_Send_Command('SOUR:VOLT:RANG 2V')
     Calys_Send_Command('SOUR:VOLT 0V')
+
 
 def Calys_Menu():
     """This function realizes processing of all levels of app menu
@@ -200,10 +203,17 @@ def Calys_Menu():
                     break
                 elif CalSelector == 1:
                     print("\n1. Start Calibration in range 100mV \n")
+                    Unit = (Calys_Set_Range(Function='VOLT', VRange=100))
+                    print(str(Unit))
+                    Calys_Calibration(Start_Cal=0, Stop_Cal=100, Step_Cal=25, End_of_Command=Unit)
                 elif CalSelector == 2:
                     print("\n2. Start Calibration in range 2V \n")
+                    Unit = (Calys_Set_Range(Function='VOLT', VRange=2))
+                    Calys_Calibration(Start_Cal=0, Stop_Cal=2, Step_Cal=1, End_of_Command=Unit)
                 elif CalSelector == 3:
                     print("\n3. Start Calibration in range 20V \n")
+                    Unit = (Calys_Set_Range(Function='VOLT', VRange=20))
+                    Calys_Calibration(Start_Cal=0, Stop_Cal=20, Step_Cal=5, End_of_Command=Unit)
                 else:
                     print('\x1b[2;30;41m' + 'Please select correct options...' + '\x1b[0m')
         elif TopSelector == 2:
@@ -245,14 +255,14 @@ ser = serial.Serial(
 
 Calys_Init()
 
-# Calys_Menu()
+Calys_Menu()
 
-Units = (Calys_Set_Range(Function='VOLT', VRange=20))
-Calys_Calibration(Start_Cal=0, Stop_Cal=20, Step_Cal=5, End_of_String=Units)
+# Units = (Calys_Set_Range(Function='VOLT', VRange=20))
+# Calys_Calibration(Start_Cal=0, Stop_Cal=20, Step_Cal=5, End_of_String=Units)
 
 Calys_Stop()
 
 # time.sleep(5.5) # Pause 5.5 seconds
 # wait = input('Press any key to continue...')
-# TODO 1)Implement Calys_Set_Range & Calys_Calibration into Calys_Menu function
-# TODO 2)Set colors for output alarm strings in Calys_Calibration/Calys_Set_Range functions
+# TODO 1) Develop a function for Voltage Measurement use Calys_Calibration as example
+#      2) Implement Voltage measurement into Main_Menu
