@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import simple_draw as sd
-
+sd.resolution = (1200, 600)
 # Часть 1.
 # Написать функции рисования равносторонних геометрических фигур:
 # - треугольника
@@ -12,45 +12,44 @@ import simple_draw as sd
 # - точка начала рисования
 # - угол наклона
 # - длина стороны
+
+# def triangle(point, angle, length):
+#     v1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
+#     v1.draw()
 #
-# Использование копи-пасты - обязательно! Даже тем кто уже знает про её пагубность. Для тренировки.
-# Как работает копипаста:
-#   - одну функцию написали,
-#   - копипастим её, меняем название, чуть подправляем код,
-#   - копипастим её, меняем название, чуть подправляем код,
-#   - и так далее.
-# В итоге должен получиться ПОЧТИ одинаковый код в каждой функции
-
-# Пригодятся функции
-# sd.get_point()
-# sd.get_vector()
-# sd.line()
-# Результат решения см lesson_004/results/exercise_01_shapes.jpg
-
-# TODO здесь ваш код
-
-# Часть 1-бис.
-# Попробуйте прикинуть обьем работы, если нужно будет внести изменения в этот код.
-# Скажем, связывать точки не линиями, а дугами. Или двойными линиями. Или рисовать круги в угловых точках. Или...
-# А если таких функций не 4, а 44?
-
-# Часть 2 (делается после зачета первой части)
+#     v2 = sd.get_vector(start_point=v1.end_point, angle=angle + 120, length=length, width=3)
+#     v2.draw()
 #
-# Надо сформировать функцию, параметризированную в местах где была "небольшая правка".
-# Это называется "Выделить общую часть алгоритма в отдельную функцию"
-# Потом надо изменить функции рисования конкретных фигур - вызывать общую функцию вместо "почти" одинакового кода.
+#     v3 = sd.get_vector(start_point=v2.end_point, angle=angle + 240, length=length, width=3)
+#     v3.draw()
 #
-# В итоге должно получиться:
-#   - одна общая функция со множеством параметров,
-#   - все функции отрисовки треугольника/квадрата/етс берут 3 параметра и внутри себя ВЫЗЫВАЮТ общую функцию.
-#
-# Не забудте в этой общей функции придумать, как устранить разрыв
-#   в начальной/конечной точках рисуемой фигуры (если он есть)
+# triangle(point=point_0, angle=0, length=length_0)
 
-# Часть 2-бис.
-# А теперь - сколько надо работы что бы внести изменения в код? Выгода на лицо :)
-# Поэтому среди программистов есть принцип D.R.Y. https://clck.ru/GEsA9
-# Будьте ленивыми, не используйте копи-пасту!
+def shape(**kwargs):
+    """
+    This function draws a shape with several sides and equal length
+    :param kwargs:
+    point = sd.get_point(200, 200) - start point
+    angle(int) = first angle between lines
+    length(int) = length of line
+    sides(int) = amount of shape's sides with equal length
+    :return: None
+    """
+    point = kwargs.get('point', sd.get_point(200, 200))
+    angle = kwargs.get('angle', 0)
+    length = kwargs.get('length', 100)
+    sides = kwargs.get('sides', 3)
+    delta_angle = 360/sides
+    v = []
+    v.append(sd.get_vector(start_point=point, angle=angle, length=length, width=3))
+    v[0].draw()
+    for i in range(sides):
+        angle+=delta_angle
+        v.append(sd.get_vector(start_point=v[i].end_point, angle=angle, length=length, width=3))
+        v[i].draw()
 
-
+shape()
+shape(point=sd.get_point(50, 50), angle=0, length=100, sides=4)
+shape(point=sd.get_point(300, 300), angle=0, length=100, sides=5)
+shape(point=sd.get_point(500, 400), angle=0, length=100, sides=6)
 sd.pause()
