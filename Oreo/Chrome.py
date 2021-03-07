@@ -1,10 +1,10 @@
 import time
 import pyautogui
 
-width, height = pyautogui.size()    # returns a screen resolution
+width, height = pyautogui.size()  # returns a screen resolution
 print(str(width) + ' ' + str(height))
 
-codesFile = open('C:\\Users\\Oleksandr Siora\\PycharmProjects\\PythonBase\\Oreo\\codes.txt') #Open file in ReadMode
+codesFile = open('C:\\Users\\Oleksandr Siora\\PycharmProjects\\PythonBase\\Oreo\\codes.txt')  # Open file in ReadMode
 listCodes = codesFile.readlines()
 print(listCodes)
 codesFile.close()
@@ -21,10 +21,10 @@ for i in listCodes:
     pyautogui.click()
     pyautogui.typewrite(CODE, interval=0.1)
 
-    #Enter the EMAIL
+    # Enter the EMAIL
     print('2.Enter EMAIL...')
     time.sleep(5)  # Pause 5 seconds
-    #pyautogui.press('tab')
+    # pyautogui.press('tab')
     pyautogui.moveTo(2655, 585)
     pyautogui.click()
     pyautogui.typewrite(EMAIL, interval=0.1)
@@ -36,14 +36,14 @@ for i in listCodes:
     pyautogui.click()
 
     # Close Advertisement
-    time.sleep(5) # Pause 2 seconds
+    time.sleep(5)  # Pause 2 seconds
     pyautogui.moveTo(2100, 245)
     pyautogui.click()
 
     # Check Result
     print('4.Close Advertisement...')
-    time.sleep(5) # Pause 2 seconds
-    pyautogui.moveTo(2810, 945) # Need to check and correct coordinates
+    time.sleep(5)  # Pause 2 seconds
+    pyautogui.moveTo(2810, 945)  # Need to check and correct coordinates
     pyautogui.click()
 
     # Locate result button on the screen

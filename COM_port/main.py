@@ -154,6 +154,10 @@ def Calys_Set_Range(*, Function=('VOLT', 'CURR'), **kwargs):
             Calys_Send_Command('SOUR:VOLT:RANG 50V')
     return Units
 
+def Calys_Measurement(Unit, Average):
+    pass
+    Value: = 0
+    return Value
 
 # def Calys_Calibration(*, Start_Cal, Stop_Cal, Step_Cal, End_of_String='V'):
 def Calys_Calibration(**kwargs):
