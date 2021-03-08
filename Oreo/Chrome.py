@@ -22,7 +22,7 @@ for i in listCodes:
     pyautogui.typewrite(CODE, interval=0.1)
 
     # Enter the EMAIL
-    print('2.Enter EMAIL...')
+    print('2.Enter EMAIL...' + EMAIL)
     time.sleep(5)  # Pause 5 seconds
     # pyautogui.press('tab')
     pyautogui.moveTo(2655, 585)
@@ -46,6 +46,8 @@ for i in listCodes:
     pyautogui.moveTo(2810, 945)  # Need to check and correct coordinates
     pyautogui.click()
 
+    # TODO insert check for CAPCHA apeears and "Wait for user input..." and resolve CAPCHA
+
     # Locate result button on the screen
     print('5.Try to find TryAgain button...')
     time.sleep(30)
@@ -53,6 +55,7 @@ for i in listCodes:
     print(Result)
     if Result != None:
         break;
+        # TODO store to external file successfull CODE/EMAIL
 
     # Backward to previous page and refresh
     print('6.Chrome back & refresh page...')
