@@ -5,7 +5,10 @@
 # подсказка: для вывода элементов списка через запятую можно использовать функцию строки .join()
 # https://docs.python.org/3/library/stdtypes.html#str.join
 
-# TODO здесь ваш код
+import room_1, room_2
+people = [room_1.folks, room_2.folks]
+result = sum(people, [])
+print('На районе живут ' + ', '.join(result))
 
 
 
