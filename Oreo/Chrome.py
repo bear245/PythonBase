@@ -13,12 +13,14 @@ codesFile = open('C:\\Users\\Oleksandr Siora\\PycharmProjects\\PythonBase\\Oreo\
 listCodes = codesFile.readlines()
 print(listCodes)
 codesFile.close()
-# for i in listCodes:
-
-for i in range(10):
+index = 0
+for i in listCodes:
+# for i in range(10):
+    index = index + 1
+    print(index)
     print(i)
-    # CODE = i
-    CODE = 'YNHLWAQT'
+    CODE = i
+    # CODE = 'YNHLWAQT'
     EMAIL = CODE.lower() + str(random.randint(0, 100)) + '@ukr.net'
 
     # Set CheckBox
@@ -65,10 +67,12 @@ for i in range(10):
     print(CapchaFound)
     if CapchaFound:
         wait = input('Press any key to continue...')
-        time.sleep(5)
+        time.sleep(2)
+        continue
+
 
     # Check for daily limit
-    time.sleep(15)
+    time.sleep(5)
     print('6.Check DailyLimit')
     DailyLimitFound = pyautogui.locateCenterOnScreen('dailylimit.png', confidence=0.9)
     print(DailyLimitFound)
@@ -77,7 +81,7 @@ for i in range(10):
 
     # Locate result button on the screen
     print('7.Try to find TryAgain button...')
-    time.sleep(15)
+    time.sleep(5)
     TryAgainFound = pyautogui.locateCenterOnScreen('tryagain.png', confidence=0.9)
     print(TryAgainFound)
     if TryAgainFound:
