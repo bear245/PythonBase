@@ -1,5 +1,6 @@
 import time
 import pyautogui
+import random
 
 from PIL import ImageGrab
 from functools import partial
@@ -12,11 +13,13 @@ codesFile = open('C:\\Users\\Oleksandr Siora\\PycharmProjects\\PythonBase\\Oreo\
 listCodes = codesFile.readlines()
 print(listCodes)
 codesFile.close()
+# for i in listCodes:
 
-for i in listCodes:
+for i in range(10):
     print(i)
-    CODE = i
-    EMAIL = CODE.lower() + '@ukr.net'
+    # CODE = i
+    CODE = 'YNHLWAQT'
+    EMAIL = CODE.lower() + str(random.randint(0, 100)) + '@ukr.net'
 
     # Set CheckBox
     print('1.Set Checkbox...')
@@ -55,15 +58,17 @@ for i in listCodes:
         pyautogui.moveTo(2810, 945)  # Need to check and correct coordinates
         pyautogui.click()
 
-    # # TODO insert check for CAPTCHA apeears and "Wait for user input..." and resolve CAPCHA
-    # print('5.Try to find CAPTCHA...')
-    # time.sleep(5)
-    # CapchaFound = pyautogui.locateOnScreen('capcha.png', confidence=0.5)
-    # print(CapchaFound)
-    # if CapchaFound != None:
-    #     wait = input('Press any key to continue...')
+    # Check for CAPTCHA
+    print('5.Try to find CAPTCHA...')
+    time.sleep(5)
+    CapchaFound = pyautogui.locateOnScreen('capcha.png', confidence=0.9)
+    print(CapchaFound)
+    if CapchaFound:
+        wait = input('Press any key to continue...')
+        time.sleep(5)
 
-    time.sleep(20)
+    # Check for daily limit
+    time.sleep(15)
     print('6.Check DailyLimit')
     DailyLimitFound = pyautogui.locateCenterOnScreen('dailylimit.png', confidence=0.9)
     print(DailyLimitFound)
@@ -72,7 +77,7 @@ for i in listCodes:
 
     # Locate result button on the screen
     print('7.Try to find TryAgain button...')
-    time.sleep(20)
+    time.sleep(15)
     TryAgainFound = pyautogui.locateCenterOnScreen('tryagain.png', confidence=0.9)
     print(TryAgainFound)
     if TryAgainFound:

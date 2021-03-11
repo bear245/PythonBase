@@ -4,7 +4,7 @@ from PIL import ImageGrab
 # from functools import partial
 # ImageGrab.grab = partial(ImageGrab.grab, all_screens=True)
 
-pyautogui.screenshot('screen4.png')
+pyautogui.screenshot('screen5.png')
 
 # print(os.path.abspath('TryAgain.png'))
 # Check = os.path.isfile('TryAgain.png')

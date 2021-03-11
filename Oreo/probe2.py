@@ -1,13 +1,17 @@
-# import pyautogui
-# from PIL import ImageGrab
-# from functools import partial
-# ImageGrab.grab = partial(ImageGrab.grab, all_screens=True)
+import pyautogui
+from PIL import ImageGrab
+from functools import partial
+ImageGrab.grab = partial(ImageGrab.grab, all_screens=True)
 #
 # Forward = pyautogui.locateCenterOnScreen('tryagain.png', confidence=0.9)
 # print(Forward)
 # pyautogui.moveTo(Forward[0], Forward[1])
 # pyautogui.click()
 
-import random
+# import random
+# print(random.randint(3, 9))
 
-print(random.randint(3, 9))
+CapchaFound = pyautogui.locateOnScreen('capcha.png', confidence=0.9)
+print(CapchaFound)
+if CapchaFound:
+    wait = input('Press any key to continue...')
