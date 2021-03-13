@@ -54,7 +54,7 @@ def Send_Request(Command):
     ser.write(Command.encode())
     raw_bytes = ser.readline()  # Read all present data from SERIAL
     print('Received: ' + str(raw_bytes.decode()))  # Display received data as UNICODE decoded from BIN Array
-
+    return raw_bytes.decode()
 
 def Set_Range(*, Function=('VOLT', 'CURR'), **kwargs):
     """This function sets Source output function of HW
@@ -99,7 +99,8 @@ def Set_Range(*, Function=('VOLT', 'CURR'), **kwargs):
 
 def Measurement(Unit, Average):
     pass
-    Value = 0
+    Value = Send_Request('SENSE:MEAS:VOLT?')
+    # Value = 0
     return Value
 
 # def Calys_Calibration(*, Start_Cal, Stop_Cal, Step_Cal, End_of_String='V'):
