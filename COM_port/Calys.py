@@ -97,7 +97,13 @@ def Set_Range(*, Function=('VOLT', 'CURR'), **kwargs):
             Send_Command('SOUR:VOLT:RANG 50V')
     return Units
 
-def Measurement(Unit='VOLT', Range='10V', Average=5, Iter=5):
+# def Measurement(Unit='VOLT', Range='10V', Average=5, Iter=5):
+def Measurement(**kwargs):
+    Unit = kwargs.get('Unit', 'VOLT')
+    Range = kwargs.get('Range', '10V')
+    Average = kwargs.get('Average', 1)
+    Iter = kwargs.get('Iter', 1)
+
     Command = ('MEAS:' + Unit + '? ' + Range + ', ' + str(Average) + '\r\n')
     print(Command)
     for i in range(Iter):
@@ -105,11 +111,14 @@ def Measurement(Unit='VOLT', Range='10V', Average=5, Iter=5):
         raw_bytes = ser.readline()  # Read all present data from SERIAL
         Value = raw_bytes.decode()
         print('Measured: ' + str(Value))
-        User_Input = input('\x1b[5;30;42m' + 'Press any key to continue Next Measurement...' + '\x1b[0m')
+
+        if i+1 == Iter:
+            break
+
+        User_Input = input('\x1b[5;30;42m' + 'Press any key to next Measurement...' + '\x1b[0m')
         if User_Input.upper() == 'EXIT' or User_Input.upper() == 'QUIT':
             break
             # TODO: make return Value as list
-            # TODO: change named parameters to **kwargs
             # TODO: document the function
     return Value
 
