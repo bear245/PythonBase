@@ -11,7 +11,10 @@ import Menu
 
 Calys.Init()
 
-Menu.Calys_Menu()
+# Menu.Calys_Menu()
+# Calys.Send_Request('MEAS:VOLT? 10V, 5')
+Calys.Measurement(Unit='VOLT', Range='10V', Average=2, Iter=3)
+
 
 Calys.Stop()
 # Units = (Calys_Set_Range(Function='VOLT', VRange=20))

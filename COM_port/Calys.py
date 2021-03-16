@@ -97,10 +97,20 @@ def Set_Range(*, Function=('VOLT', 'CURR'), **kwargs):
             Send_Command('SOUR:VOLT:RANG 50V')
     return Units
 
-def Measurement(Unit, Average):
-    pass
-    Value = Send_Request('SENSE:MEAS:VOLT?')
-    # Value = 0
+def Measurement(Unit='VOLT', Range='10V', Average=5, Iter=5):
+    Command = ('MEAS:' + Unit + '? ' + Range + ', ' + str(Average) + '\r\n')
+    print(Command)
+    for i in range(Iter):
+        ser.write(Command.encode())
+        raw_bytes = ser.readline()  # Read all present data from SERIAL
+        Value = raw_bytes.decode()
+        print('Measured: ' + str(Value))
+        User_Input = input('\x1b[5;30;42m' + 'Press any key to continue Next Measurement...' + '\x1b[0m')
+        if User_Input.upper() == 'EXIT' or User_Input.upper() == 'QUIT':
+            break
+            # TODO: make return Value as list
+            # TODO: change named parameters to **kwargs
+            # TODO: document the function
     return Value
 
 # def Calys_Calibration(*, Start_Cal, Stop_Cal, Step_Cal, End_of_String='V'):
